@@ -5,7 +5,7 @@ defmodule PhoenixApi101Web.PostController do
   alias PhoenixApi101.Blogs.Post
   alias JaSerializer.Params
 
-  action_fallback PhoenixApi101Web.FallbackController
+  action_fallback(PhoenixApi101Web.FallbackController)
 
   def index(conn, _params) do
     posts = Blogs.list_posts()
@@ -26,7 +26,10 @@ defmodule PhoenixApi101Web.PostController do
     render(conn, "show.json-api", data: post)
   end
 
-  def update(conn, %{"id" => id, "data" => data = %{"type" => "post", "attributes" => post_params}}) do
+  def update(conn, %{
+        "id" => id,
+        "data" => data = %{"type" => "post", "attributes" => post_params}
+      }) do
     post = Blogs.get_post!(id)
 
     with {:ok, %Post{} = post} <- Blogs.update_post(post, post_params) do
@@ -36,6 +39,7 @@ defmodule PhoenixApi101Web.PostController do
 
   def delete(conn, %{"id" => id}) do
     post = Blogs.get_post!(id)
+
     with {:ok, %Post{}} <- Blogs.delete_post(post) do
       send_resp(conn, :no_content, "")
     end
