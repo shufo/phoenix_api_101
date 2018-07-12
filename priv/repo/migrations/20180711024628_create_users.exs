@@ -9,6 +9,6 @@ defmodule PhoenixApi101.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
-    create(unique_index(:users, [:username], name: :unique_usernames))
+    # create(unique_index(:users, [:username], name: :unique_usernames))
   end
 end
