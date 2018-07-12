@@ -3,11 +3,12 @@ defmodule PhoenixApi101.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :username, :string
-      add :password, :string
+      add(:username, :string)
+      add(:password, :string)
 
       timestamps()
     end
 
+    create(unique_index(:users, [:username], name: :unique_usernames))
   end
 end

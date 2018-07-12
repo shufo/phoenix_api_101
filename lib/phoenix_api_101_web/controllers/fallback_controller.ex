@@ -3,6 +3,7 @@ defmodule PhoenixApi101Web.FallbackController do
   Translates controller action results into valid `Plug.Conn` responses.
 
   See `Phoenix.Controller.action_fallback/1` for more details.
+  失敗したときの処理
   """
   use PhoenixApi101Web, :controller
 
@@ -17,4 +18,10 @@ defmodule PhoenixApi101Web.FallbackController do
     |> put_status(:not_found)
     |> render(PhoenixApi101Web.ErrorView, :"404")
   end
+
+  # def call(conn, {:error, :conflict}) do
+  #  conn
+  #  |> put_status(:conflict)
+  #  |> render(PhoenixApi101Web.ErrorView, :"409")
+  # end
 end
