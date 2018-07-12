@@ -8,6 +8,6 @@ defmodule PhoenixApi101.Repo.Migrations.CreateUsers do
 
       timestamps()
     end
-
+create(unquote_splicing(:user,[:username]))
   end
 end

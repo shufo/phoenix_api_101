@@ -18,7 +18,9 @@ defmodule PhoenixApi101.Blogs do
 
   """
   def list_posts do
-    Repo.all(Post)
+    Post
+    |> limit(10)
+    |> Repo.all()
   end
 
   @doc """
