@@ -18,5 +18,6 @@ defmodule PhoenixApi101.Accounts.User do
     |> validate_required([:username, :password])
     |> validate_length(:password, min: 8)
     |> validate_format(:username, ~r"^[a-zA-Z\d\s]+$")
+    |> unique_constraint(:username, [user])
   end
 end
