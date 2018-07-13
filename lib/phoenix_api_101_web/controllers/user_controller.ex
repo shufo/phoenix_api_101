@@ -3,7 +3,7 @@ defmodule PhoenixApi101Web.UserController do
 
   alias PhoenixApi101.Accounts
   alias PhoenixApi101.Accounts.User
-  alias JaSerializer.Params
+  # alias JaSerializer.Params
   alias PhoenixApi101.Repo
 
   action_fallback(PhoenixApi101Web.FallbackController)
@@ -19,8 +19,12 @@ defmodule PhoenixApi101Web.UserController do
   end
 
   def create(conn, %{"data" => data = %{"type" => "user", "attributes" => user_params}}) do
-    # if Repo.get_by(User, username: user_params["username"]) == nil do
-    #  IO.puts("create")
+    # if user_params["username"] == nil do
+    #  {:error, 422}
+    # else
+    # if Repo.get_by(User, username: user_params["username"]) |> is_nil() == false do
+    #  {:error, :conflict}
+    # end
 
     with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
       conn
@@ -29,11 +33,9 @@ defmodule PhoenixApi101Web.UserController do
       |> render("show.json-api", data: user)
     end
 
-    # else
-    #  IO.puts("error")
-
-    #  conn
-    #  |> put_status(409)
+    #  else
+    #    {:error, :conflict}
+    #  end
     # end
   end
 

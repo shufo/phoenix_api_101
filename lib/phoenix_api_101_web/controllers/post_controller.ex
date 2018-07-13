@@ -3,7 +3,7 @@ defmodule PhoenixApi101Web.PostController do
 
   alias PhoenixApi101.Blogs
   alias PhoenixApi101.Blogs.Post
-  alias JaSerializer.Params
+  # alias JaSerializer.Params
   alias PhoenixApi101.Repo
 
   action_fallback(PhoenixApi101Web.FallbackController)

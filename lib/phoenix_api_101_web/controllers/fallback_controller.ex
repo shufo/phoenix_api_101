@@ -19,9 +19,15 @@ defmodule PhoenixApi101Web.FallbackController do
     |> render(PhoenixApi101Web.ErrorView, :"404")
   end
 
-  # def call(conn, {:error, :conflict}) do
-  #  conn
-  #  |> put_status(:conflict)
-  #  |> render(PhoenixApi101Web.ErrorView, :"409")
-  # end
+  def call(conn, {:error, :conflict}) do
+    conn
+    |> put_status(:conflict)
+    |> render(PhoenixApi101Web.ErrorView, :"409")
+  end
+
+  def call(conn, {:error, 422}) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> render(PhoenixApi101Web.ErrorView, :"422")
+  end
 end

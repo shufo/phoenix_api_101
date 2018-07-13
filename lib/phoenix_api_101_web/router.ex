@@ -25,5 +25,9 @@ defmodule PhoenixApi101Web.Router do
     pipe_through(:api)
     resources("/users", UserController, except: [:new, :edit])
     resources("/posts", PostController, except: [:new, :edit])
+    # resources("/oauth2/token", AuthController, except: [:new, :edit])
+    # get("/oauth2", AuthController, :index)
+    # post("/oauth2/token", AuthController, :token)
+    # delete("/logout", AuthController, :delete)
   end
 end

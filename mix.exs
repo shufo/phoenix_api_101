@@ -20,7 +20,7 @@ defmodule PhoenixApi101.Mixfile do
   def application do
     [
       mod: {PhoenixApi101.Application, []},
-      application: [:scrivener, :scrivener_headers, :scrivener_ecto],
+      application: [:scrivener, :scrivener_headers, :scrivener_ecto, :oauth2],
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -47,7 +47,8 @@ defmodule PhoenixApi101.Mixfile do
       {:mariaex, "~> 0.8.2"},
       {:scrivener, "~> 2.0"},
       {:scrivener_headers, "~> 3.1"},
-      {:scrivener_ecto, "~> 1.0"}
+      {:scrivener_ecto, "~> 1.0"},
+      {:oauth2, "~> 0.3"}
     ]
   end
 
