@@ -1,5 +1,6 @@
 defmodule PhoenixApi101.Repo do
   use Ecto.Repo, otp_app: :phoenix_api_101
+  use Scrivener, page_size: 10
 
   @doc """
   Dynamically loads the repository url from the
