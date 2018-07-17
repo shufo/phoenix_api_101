@@ -43,7 +43,8 @@ defmodule PhoenixApi101.Mixfile do
       {:cowboy, "~> 1.0"},
       {:ja_serializer, "~> 0.13.0"},
       {:phoenix_swagger, ">= 0.0.0"},
-      {:mariaex, "~> 0.8.2"}
+      {:mariaex, "~> 0.8.2"},
+      {:elasticsearch, "~> 0.4.1"}
     ]
   end
 
