@@ -1,4 +1,4 @@
-defmodule PhoenixApi101.Auth.Auth do
+defmodule PhoenixApi101.Auth do
   use Ecto.Schema
   import Ecto.Changeset
   import Ecto.Query, only: [from: 2]
@@ -12,18 +12,23 @@ defmodule PhoenixApi101.Auth.Auth do
   """
   def authenticate_user(username, plain_text_password) do
     query = from(u in User, where: u.username == ^username)
-
-    Repo.one(query)
-    |> check_password(plain_text_password)
+    # IO.puts(Repo.one(query).password)
+    if(Repo.one(query).password == plain_text_password) do
+      # IO.puts(plain_text_password)
+      {:ok, %{"user" => %{"username" => username, "password" => plain_text_password}}}
+    else
+      {:error, "Incorrect email or password."}
+    end
   end
 
   defp check_password(nil, _), do: {:error, "Incorrect email or password."}
 
   defp check_password(user, plain_text_password) do
-    case Bcrypt.checkpw(plain_text_password, user.password) do
-      true -> {:ok, user}
-      false -> {:error, "Incorrect email or password."}
-    end
+    # case Bcrypt.checkpw(plain_text_password, user.password) do
+    # true -> {:ok, user}
+    # false -> {:error, "Incorrect email or password."}
+    #  end
+    {:ok, user}
   end
 
   @doc """

@@ -1,4 +1,4 @@
-defmodule PhoenixApi101Web.SessionView do
+defmodule PhoenixApi101Web.AuthView do
   use PhoenixApi101Web, :view
 
   def render("login.json", %{response: response}) do
