@@ -17,4 +17,16 @@ defmodule PhoenixApi101Web.FallbackController do
     |> put_status(:not_found)
     |> render(PhoenixApi101Web.ErrorView, :"404")
   end
+
+  def call(conn, {:error, :created}) do
+    conn
+    |> put_status(:created)
+    |> render(PhoenixApi101Web.PageView, :"201")
+  end
+
+  def call(conn, {:error, :conflict}) do
+    conn
+    |> put_status(:conflict)
+    |> render(PhoenixApi101Web.ChangesetView, :"409")
+  end
 end

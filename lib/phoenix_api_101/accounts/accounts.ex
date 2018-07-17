@@ -18,7 +18,9 @@ defmodule PhoenixApi101.Accounts do
 
   """
   def list_users do
-    Repo.all(User)
+    User
+    |> limit(10)
+    |> Repo.all()
   end
 
   @doc """
