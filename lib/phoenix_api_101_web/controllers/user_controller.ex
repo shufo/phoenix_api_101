@@ -3,22 +3,40 @@ defmodule PhoenixApi101Web.UserController do
 
   alias PhoenixApi101.Accounts
   alias PhoenixApi101.Accounts.User
-  alias JaSerializer.Params
+  # alias JaSerializer.Params
+  alias PhoenixApi101.Repo
 
   action_fallback(PhoenixApi101Web.FallbackController)
 
-  def index(conn, _params) do
-    users = Accounts.list_users()
-    render(conn, "index.json-api", data: users)
+  def index(conn, params) do
+    page =
+      User
+      |> Repo.paginate(params)
+
+    conn
+    |> Scrivener.Headers.paginate(page)
+    |> render("index.json-api", data: page.entries)
   end
 
   def create(conn, %{"data" => data = %{"type" => "user", "attributes" => user_params}}) do
+    # if user_params["username"] == nil do
+    #  {:error, 422}
+    # else
+    # if Repo.get_by(User, username: user_params["username"]) |> is_nil() == false do
+    #  {:error, :conflict}
+    # end
+
     with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", user_path(conn, :show, user))
       |> render("show.json-api", data: user)
     end
+
+    #  else
+    #    {:error, :conflict}
+    #  end
+    # end
   end
 
   def show(conn, %{"id" => id}) do

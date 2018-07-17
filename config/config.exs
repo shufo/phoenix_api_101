@@ -38,6 +38,16 @@ config :phoenix_api_101, :phoenix_swagger,
     ]
   }
 
+config :guardian, Guardian.DB,
+  repo: AppEx.Repo,
+  schema_name: "guardian_tokens",
+  # default: 60 minutes
+  sweep_interval: 60
+
+config :app_ex, AppEx.Auth.Guardian,
+  issuer: "app_ex",
+  secret_key: "lDio1ZZZpdEqzPo3NTGA0my3DCZfDIdbwX0CBssG6PDQe6fo0guh3Jj4axjt85UJ"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

@@ -19,8 +19,19 @@ defmodule PhoenixApi101Web.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  # def connect(_params, socket) do
+  #  {:ok, socket}
+  # end
+
+  def connect(%{"token" => token}, socket) do
+    case Phoenix.Token.verify(socket, "user salt", token, max_age: 86400) do
+      {:ok, user_id} ->
+        socket = assign(socket, :user, Repo.get!(User, user_id))
+        {:ok, socket}
+
+      {:error, _} ->
+        :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
