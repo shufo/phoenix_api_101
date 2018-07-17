@@ -4,12 +4,20 @@ defmodule PhoenixApi101Web.PostController do
   alias PhoenixApi101.Blogs
   alias PhoenixApi101.Blogs.Post
   alias JaSerializer.Params
+  alias PhoenixApi101.Repo
 
   action_fallback(PhoenixApi101Web.FallbackController)
 
-  def index(conn, _params) do
-    posts = Blogs.list_posts()
-    render(conn, "index.json-api", data: posts)
+  def index(conn, params) do
+    #    posts = Blogs.list_posts()
+
+    page =
+      Post
+      |> Repo.paginate(params)
+
+    conn
+    |> Scrivener.Headers.paginate(page)
+    |> render("index.json-api", data: page.entries)
   end
 
   def create(conn, %{"data" => data = %{"type" => "post", "attributes" => post_params}}) do
