@@ -11,9 +11,11 @@ defmodule PhoenixApi101.Application do
       # Start the Ecto repository
       supervisor(PhoenixApi101.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(PhoenixApi101Web.Endpoint, [])
+      supervisor(PhoenixApi101Web.Endpoint, []),
       # Start your own worker by calling: PhoenixApi101.Worker.start_link(arg1, arg2, arg3)
-      # worker(PhoenixApi101.Worker, [arg1, arg2, arg3]),
+      # worker(PhoenixApi101.Worker, [arg1, arg2, arg3])
+      # ここだけ追加
+      worker(Guardian.DB.Token.SweeperServer, [])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

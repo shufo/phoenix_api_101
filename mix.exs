@@ -48,7 +48,11 @@ defmodule PhoenixApi101.Mixfile do
       {:scrivener, "~> 2.0"},
       {:scrivener_headers, "~> 3.1"},
       {:scrivener_ecto, "~> 1.0"},
-      {:oauth2, "~> 0.3"}
+      {:oauth2, "~> 0.3"},
+      {:guardian, "~> 1.0"},
+      {:guardian_db, "~> 1.0"},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 0.12"}
     ]
   end
 
