@@ -49,6 +49,3 @@ https://circleci.com/gh/shufo/phoenix_api_101
 ```
 $ mix format
 ```
-
-
-Docker ID ced06703d21d
