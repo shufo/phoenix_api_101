@@ -3,6 +3,9 @@ defmodule PhoenixApi101Web.PostControllerTest do
 
   alias PhoenixApi101.Blogs
   alias PhoenixApi101.Blogs.Post
+  alias PhoenixApi101.ElasticsearchCluster
+
+  @moduletag :post
 
   @create_attrs %{body: "some body", title: "some title"}
   @update_attrs %{body: "some updated body", title: "some updated title"}
@@ -147,5 +150,47 @@ defmodule PhoenixApi101Web.PostControllerTest do
     assert_error_sent(404, fn ->
       get(conn, post_path(conn, :show, post))
     end)
+  end
+
+  describe "elasticsearch" do
+    setup [:delete_index, :create_index]
+
+    test "search index" do
+      result =
+        Elasticsearch.post!(ElasticsearchCluster, "/posts/_doc/_search", %{
+          "query" => %{"term" => %{title: "some"}}
+        })
+
+      assert result["hits"]["hits"] |> length == 10
+    end
+
+    test "create index by parameters" do
+      Blogs.create_search_index(%{title: "foo", body: "bar"})
+
+      Elasticsearch.Index.refresh(ElasticsearchCluster, "posts")
+
+      result =
+        Elasticsearch.post!(ElasticsearchCluster, "/posts/_doc/_search", %{
+          "query" => %{"term" => %{title: "foo"}}
+        })
+
+      assert result["hits"]["hits"] |> length == 1
+    end
+  end
+
+  defp delete_index(_) do
+    Elasticsearch.delete(ElasticsearchCluster, "posts")
+    :ok
+  end
+
+  defp create_index(_) do
+    posts = for _ <- 1..10, do: fixture(:post)
+
+    posts
+    |> Enum.each(&Blogs.create_search_index(&1))
+
+    Elasticsearch.Index.refresh(ElasticsearchCluster, "posts")
+
+    {:ok, posts: posts}
   end
 end

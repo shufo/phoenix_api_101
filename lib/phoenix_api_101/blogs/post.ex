@@ -17,4 +17,16 @@ defmodule PhoenixApi101.Blogs.Post do
     |> cast(attrs, [:title, :body])
     |> validate_required([:title, :body])
   end
+
+
+  defimpl Elasticsearch.Document, for: __MODULE__ do
+    def id(post), do: post.id
+
+    def encode(post) do
+      %{
+        title: post.title,
+        body: post.body
+      }
+    end
+  end
 end

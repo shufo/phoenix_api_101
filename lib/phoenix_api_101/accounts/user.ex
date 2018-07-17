@@ -20,4 +20,15 @@ defmodule PhoenixApi101.Accounts.User do
     |> validate_format(:username, ~r"^[a-zA-Z\d\s]+$")
     |> unique_constraint(:username, [user])
   end
+
+  defimpl Elasticsearch.Document, for: __MODULE__ do
+    def id(user), do: user.id
+
+    def encode(user) do
+      %{
+        username: user.username,
+        password: user.password
+      }
+    end
+  end
 end

@@ -45,7 +45,8 @@ defmodule PhoenixApi101.Mixfile do
       {:phoenix_swagger, ">= 0.0.0"},
       {:mariaex, "~> 0.8.2"},
       {:phoenix_oauth2_provider, "~> 0.4"},
-      {:ex_oauth2_provider, "~> 0.4"}
+      {:ex_oauth2_provider, "~> 0.4"},
+      {:elasticsearch, "~> 0.4.1"}
     ]
   end
 
