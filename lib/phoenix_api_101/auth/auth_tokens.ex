@@ -1,4 +1,4 @@
-defmodule AppEx.Auth.AuthTokens do
+defmodule PhoenixApi101.Auth.AuthTokens do
   use Guardian, otp_app: :app_ex
 
   def after_encode_and_sign(resource, claims, token) do
@@ -18,5 +18,4 @@ defmodule AppEx.Auth.AuthTokens do
       {:ok, claims}
     end
   end
-
 end
