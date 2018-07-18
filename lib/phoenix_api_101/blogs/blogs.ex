@@ -5,7 +5,7 @@ defmodule PhoenixApi101.Blogs do
 
   import Ecto.Query, warn: false
   alias PhoenixApi101.Repo
-
+  alias PhoenixApi101.ElasticsearchCluster
   alias PhoenixApi101.Blogs.Post
 
   @doc """
@@ -100,5 +100,14 @@ defmodule PhoenixApi101.Blogs do
   """
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
+  end
+
+  def create_search_index(param) do
+    %{title: title, body: body} = param
+
+    Elasticsearch.post(ElasticsearchCluster, "/posts/_doc", %{
+      title: title,
+      body: body
+    })
   end
 end
