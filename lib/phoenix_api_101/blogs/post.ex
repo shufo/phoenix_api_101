@@ -18,7 +18,6 @@ defmodule PhoenixApi101.Blogs.Post do
     |> validate_required([:title, :body])
   end
 
-
   defimpl Elasticsearch.Document, for: __MODULE__ do
     def id(post), do: post.id
 

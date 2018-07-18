@@ -38,7 +38,7 @@ config :phoenix_api_101, :phoenix_swagger,
     ]
   }
 
-  config :phoenix_api_101, PhoenixApi101.ElasticsearchCluster,
+config :phoenix_api_101, PhoenixApi101.ElasticsearchCluster,
   # The URL where Elasticsearch is hosted on your system
   url: "http://localhost:9200",
 
@@ -119,7 +119,7 @@ config :phoenix_api_101, :phoenix_swagger,
       bulk_wait_interval: 15_000
     }
   }
-  
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

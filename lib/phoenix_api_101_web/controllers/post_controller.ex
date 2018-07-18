@@ -44,4 +44,9 @@ defmodule PhoenixApi101Web.PostController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def search(conn, %{"query" => query}) do
+    post = Elasticsearch.get!(query)
+    render(conn, "show.json-api", data: post)
+  end
 end
